@@ -4,6 +4,10 @@
 *.dll
 *.so
 *.dylib
+cmd/**/main
+
+# Some scripts within the project
+*.py
 
 # Test binary, built with `go test -c`
 *.test
@@ -17,3 +21,7 @@
 *.png
 
 .idea
+
+media
+*.apkg
+*.anki2

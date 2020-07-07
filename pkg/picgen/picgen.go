@@ -5,7 +5,6 @@ import (
 	"image/color"
 	"image/draw"
 	"image/png"
-	"log"
 	"os"
 )
 
@@ -29,13 +28,13 @@ func arrayContains(arr []int, item int) bool {
 
 }
 
-func DrawChord(highlights []int, filename string) {
-	fullFile, fullErr := os.Create(filename)
+func DrawChord(highlights []int, filename string) error {
+	fullFile, err := os.Create(filename)
 	whiteKeysWithoutBlack := []int{2, 6, 9, 13}
 	whiteKeyIndexStutter := []int{4, 11, 16}
 	blackKeyIndexJumps := []int{3, 10, 15}
-	if fullErr != nil {
-		log.Fatal(fullErr)
+	if err != nil {
+		return err
 	}
 	fullImage := image.NewRGBA(image.Rect(0, 0, imageWidth, imageHeight))
 	highlightColor := color.RGBA{R: 230, G: 57, B: 70, A: 255}
@@ -90,8 +89,9 @@ func DrawChord(highlights []int, filename string) {
 			}
 		}
 	}
-	encodeErr := png.Encode(fullFile, fullImage)
-	if encodeErr != nil {
-		log.Fatal(encodeErr)
+	err = png.Encode(fullFile, fullImage)
+	if err != nil {
+		return err
 	}
+	return nil
 }
